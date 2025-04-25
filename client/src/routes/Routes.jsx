@@ -1,3 +1,4 @@
+
 import { createBrowserRouter } from 'react-router-dom'
 import Main from '../layouts/Main'
 import Home from '../pages/Home'
@@ -12,6 +13,7 @@ import PrivateRoute from './PrivateRoute'
 import MyBids from '../pages/MyBids'
 import BidRequests from '../pages/BidRequests'
 import AllJobs from '../pages/AllJobs'
+
 const router = createBrowserRouter([
   {
     path: '/',
