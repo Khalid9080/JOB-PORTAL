@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const { MongoClient, ServerApiVersion } = require('mongodb')
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb') // ✅ Fixed!
 require('dotenv').config()
 
 const port = process.env.PORT || 9000
@@ -33,12 +33,43 @@ async function run() {
         res.send(result)
       })
       
-      // get (fetch) from database -> client 
-    app.get('/jobs', async (req, res) => {
+      // get all (fetch) from database -> client 
+      app.get('/jobs', async (req, res) => {
         const result = await jobsCollection.find().toArray()
         res.send(result)
       })
 
+      // get single job (fetch) from database -> client
+      app.get('/jobs/:email', async (req, res) => {
+        const email= req.params.email 
+        const query={
+          'buyer.email': email
+        }
+        const result = await jobsCollection.find(query).toArray()
+        res.send(result)
+      })
+
+      // delete job (delete) from database <- client
+      app.delete('/job/:id', async (req, res) => {
+        const id=req.params.id
+        const query={
+          _id:new ObjectId(id)
+        }
+        const result= await jobsCollection.deleteOne(query)
+        res.send(result)
+      })
+
+
+
+      // id onujai single data form a get korte database -> client
+      app.get('/job/:id', async (req, res) => {
+        const id=req.params.id
+        const query={
+          _id:new ObjectId(id)
+        }
+        const result= await jobsCollection.findOne(query)
+        res.send(result)
+      })
 
 
 
