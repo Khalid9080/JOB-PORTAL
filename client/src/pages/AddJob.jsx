@@ -40,7 +40,7 @@ const AddJob = () => {
       bid_count: 0
     }
     
-    // Input Field Post Request DB..
+    // Input Field Post Request DB Database <- Client..
     try{
     axios.post(`${import.meta.env.VITE_API_URL}/add-job`, formData)
     form.reset()
